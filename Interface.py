@@ -49,6 +49,9 @@ def Run():
 	color_setup = Plot_colors(PGreencolor_entry.get(), PRedcolor_entry.get(), TGreencolor_entry.get(), TRedcolor_entry.get(), CGreencolor_entry.get(), CRedcolor_entry.get(), Cross_entry.get(), Focal_entry.get())
 	trap_setup = Trap_values(Traps_number_entry.get(), Traps_radii_entry.get(), Traps_diff_entry.get(), iftrap, iftrapmove)
 
+
+
+
 	traces = sim_py.Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifpreview, frame00, win_width, win_height, dpi_all, root)
 	#except:
 		#tk.messagebox.showerror(title="Sorry!", message="I don't feel like doing simulation right now")

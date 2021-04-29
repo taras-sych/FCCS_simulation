@@ -191,8 +191,8 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
 
             x = [p.trajectory[0], p.trajectory[1]]
 
-        number_g += p.stoch[0] * psf_3d (Dim, mu, sigma, x)
-        number_r += p.stoch[1] * psf_3d (Dim, mu, sigma, x)
+        number_g += p.stoch[0] * psf_3d (Dim, mu, sigma, x) 
+        number_r += p.stoch[1] * psf_3d (Dim, mu, sigma, x) 
 
         
     
@@ -202,6 +202,7 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
 
 
     figure1 = Figure(figsize=(win_width/(2*dpi_all),win_height/(2*dpi_all)), dpi=100)
+    figure1.patch.set_facecolor('black')
     gs = figure1.add_gridspec(2, 4)
 
     if Dim == 3:
@@ -213,6 +214,8 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
 
     fluct_plot = figure1.add_subplot(gs[0, 2:4 ])
     corr_plot = figure1.add_subplot(gs[1, 2:4])
+
+    
 
     canvas1 = FigureCanvasTkAgg(figure1, frame00)
     canvas1.get_tk_widget().pack(side = "top", anchor = "nw", fill="x", expand=True)
@@ -460,6 +463,18 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
 
                     if (color == 'yellow'):
                         box_plot.scatter(particles_x, particles_y, s = 50, linewidth = 1, facecolor='g', edgecolor = 'magenta')
+
+            box_plot.spines['bottom'].set_color('white')
+            box_plot.spines['top'].set_color('white') 
+            box_plot.spines['right'].set_color('white')
+            box_plot.spines['left'].set_color('white')
+            box_plot.tick_params(axis='x', colors='white')
+            box_plot.tick_params(axis='y', colors='white')
+            box_plot.tick_params(axis='z', colors='white')
+            box_plot.zaxis.label.set_color('white')
+            box_plot.yaxis.label.set_color('white')
+            box_plot.xaxis.label.set_color('white')
+            box_plot.set_facecolor('black')
              
             
             #--------------------------------------Print focal point---------------------------------------------
@@ -493,6 +508,16 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
             fluct_plot.ticklabel_format(axis = "y", style="sci", scilimits = (0,0))
             fluct_plot.set_ylabel('Intensity (a.u.)')
             fluct_plot.set_xlabel('Time (s)')
+
+            fluct_plot.spines['bottom'].set_color('white')
+            fluct_plot.spines['top'].set_color('white') 
+            fluct_plot.spines['right'].set_color('white')
+            fluct_plot.spines['left'].set_color('white')
+            fluct_plot.tick_params(axis='x', colors='white')
+            fluct_plot.tick_params(axis='y', colors='white')
+            fluct_plot.yaxis.label.set_color('white')
+            fluct_plot.xaxis.label.set_color('white')
+            fluct_plot.set_facecolor('black')
 
             #---------------------------------------------------------------------------------------------------------
             #----------------------------Print correlation functions--------------------------------------------------
@@ -568,6 +593,18 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
             corr_plot.set_ylabel('G(tau)')
             corr_plot.set_xlabel('Tau (s)')
 
+            corr_plot.spines['bottom'].set_color('white')
+            corr_plot.spines['top'].set_color('white') 
+            corr_plot.spines['right'].set_color('white')
+            corr_plot.spines['left'].set_color('white')
+            corr_plot.tick_params(axis='x', colors='white')
+            corr_plot.tick_params(axis='y', colors='white')
+            corr_plot.yaxis.label.set_color('white')
+            corr_plot.xaxis.label.set_color('white')
+            corr_plot.set_facecolor('black')
+
+
+
             
             if image_counter == 1:
                 box_plot.set_position(pos1)
@@ -621,7 +658,10 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
             """
             
             
-            fname = 'C:\\Users\\taras.sych\\Science\\Program development\\Simulation of diffusion\\2020.09.09 - Interface\\Output\\figure' + str(index) + '.tif'
+            #fname = 'C:\\Users\\taras.sych\\Science\\Program development\\Simulation of diffusion\\2020.09.09 - Interface\\Output\\figure' + str(index) + '.tif'
+            #fname = 'C:\\Users\\taras.sych\\Desktop\\Sim output\\Full cross corr\\figure' + str(index) + '.tif'
+            fname = 'C:\\Users\\taras.sych\\Desktop\\Sim output\\Some cross corr\\figure' + str(index) + '.tif'
+            #fname = 'C:\\Users\\taras.sych\\Desktop\\Sim output\\No cross corr\\figure' + str(index) + '.tif'
             figure1.savefig(fname, dpi=200, format="tif",transparent=False, bbox_inches=None, pad_inches=0.1, frameon=None, metadata=None)
             canvas1.draw()
             figure1.tight_layout()
@@ -805,7 +845,7 @@ def Integrate_intensity (particles, x0, y0, z0, x_res, y_res, z_res, steps):
 
             x = [p.trajectory[index][0], p.trajectory[index][1], p.trajectory[index][2]]
 
-            number_g += p.stoch[0] * psf_3d (mu, sigma, x)
+            number_g += p.stoch[0] * psf_3d (mu, sigma, x) 
             number_r += p.stoch[1] * psf_3d (mu, sigma, x)
 
 
