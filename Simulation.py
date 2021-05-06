@@ -662,7 +662,8 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
             #fname = 'C:\\Users\\taras.sych\\Desktop\\Sim output\\Full cross corr\\figure' + str(index) + '.tif'
             fname = 'C:\\Users\\taras.sych\\Desktop\\Sim output\\Some cross corr\\figure' + str(index) + '.tif'
             #fname = 'C:\\Users\\taras.sych\\Desktop\\Sim output\\No cross corr\\figure' + str(index) + '.tif'
-            figure1.savefig(fname, dpi=200, format="tif",transparent=False, bbox_inches=None, pad_inches=0.1, frameon=None, metadata=None)
+            figure1.patch.set_facecolor('black')
+            figure1.savefig(fname, dpi=200, format="tif",transparent=False, facecolor = 'black', bbox_inches=None, pad_inches=0.1, frameon=None, metadata=None)
             canvas1.draw()
             figure1.tight_layout()
         
