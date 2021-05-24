@@ -470,8 +470,9 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
             box_plot.spines['left'].set_color('white')
             box_plot.tick_params(axis='x', colors='white')
             box_plot.tick_params(axis='y', colors='white')
-            box_plot.tick_params(axis='z', colors='white')
-            box_plot.zaxis.label.set_color('white')
+            if Dim == 3:
+                box_plot.tick_params(axis='z', colors='white')
+                box_plot.zaxis.label.set_color('white')
             box_plot.yaxis.label.set_color('white')
             box_plot.xaxis.label.set_color('white')
             box_plot.set_facecolor('black')
