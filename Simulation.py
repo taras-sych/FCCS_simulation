@@ -201,6 +201,30 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
     numbers_r.append(number_r)
 
 
+    """figure1 = Figure(figsize=(win_width/(2*dpi_all),win_height/(2*dpi_all)), dpi=100)
+                figure1.patch.set_facecolor('black')
+                gs = figure1.add_gridspec(2, 4)
+            
+                if Dim == 3:
+                    #ax = p3.Axes3D(fig1)
+                    box_plot = figure1.add_subplot(gs[0:2, 0:2], projection='3d')
+            
+                if Dim == 2:
+                    box_plot = figure1.add_subplot(gs[0:2, 0:2])
+            
+                fluct_plot = figure1.add_subplot(gs[0, 2:4 ])
+                corr_plot = figure1.add_subplot(gs[1, 2:4])
+            
+                
+            
+                canvas1 = FigureCanvasTkAgg(figure1, frame00)
+                canvas1.get_tk_widget().pack(side = "top", anchor = "nw", fill="x", expand=True)
+            
+                toolbar = NavigationToolbar2Tk(canvas1, frame00)
+                toolbar.update()
+                canvas1.get_tk_widget().pack()
+            
+                figure1.tight_layout()"""
     figure1 = Figure(figsize=(win_width/(2*dpi_all),win_height/(2*dpi_all)), dpi=100)
     figure1.patch.set_facecolor('black')
     gs = figure1.add_gridspec(2, 4)
@@ -226,8 +250,9 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
 
     figure1.tight_layout()
 
-
     for index in range (1,steps):
+
+        
 
         #-------------------------------------------------------------------------------------------------
         #--------------------------------------Move traps-------------------------------------------------
@@ -312,7 +337,7 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
             #----------------------------Print particles--------------------------------------------------------------
             #---------------------------------------------------------------------------------------------------------
 
-            box_plot.set_title("Simulation box")
+            box_plot.set_title("Simulation box", color="white")
 
 
 
@@ -482,14 +507,16 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
             
 
             Plot_focal_point (Dim, box_plot, x__0, y__0, z__0, x_res, y_res, z_res)
+            if (Dim == 2):
+                box_plot.set_aspect(1)
 
             #---------------------------------------------------------------------------------------------------------
             #----------------------------Print traces-----------------------------------------------------------------
             #---------------------------------------------------------------------------------------------------------
 
-            fluct_plot.set_title("Intensity traces")
+            fluct_plot.set_title("Intensity traces", color="white")
 
-            x_length = 0.2
+            x_length = 0.5
 
             t1 = np.linspace (0,index, index+1)
             t1 = t1*time_step/1000
@@ -499,7 +526,8 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
                 fluct_plot.set_xlim(0, x_length)
 
             if t1[len(t1)-1] > x_length:
-                fluct_plot.set_xlim(t1[len(t1)-1] - x_length, t1[len(t1)-1])
+                #fluct_plot.set_xlim(t1[len(t1)-1] - x_length, t1[len(t1)-1])
+                fluct_plot.set_xlim(0, t1[len(t1)-1])
 
 
 
@@ -524,7 +552,7 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
             #----------------------------Print correlation functions--------------------------------------------------
             #---------------------------------------------------------------------------------------------------------
 
-            corr_plot.set_title("Correlation functions")
+            corr_plot.set_title("Correlation functions", color="white")
 
             if index > 50:
 
@@ -661,12 +689,17 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
             
             #fname = 'C:\\Users\\taras.sych\\Science\\Program development\\Simulation of diffusion\\2020.09.09 - Interface\\Output\\figure' + str(index) + '.tif'
             #fname = 'C:\\Users\\taras.sych\\Desktop\\Sim output\\Full cross corr\\figure' + str(index) + '.tif'
-            fname = 'C:\\Users\\taras.sych\\Desktop\\Sim output\\Some cross corr\\figure' + str(index) + '.tif'
+            fname = 'C:\\Users\\taras.sych\\Desktop\\Sim output\\figure' + str(index) + '.tif'
             #fname = 'C:\\Users\\taras.sych\\Desktop\\Sim output\\No cross corr\\figure' + str(index) + '.tif'
+            figure1.savefig(fname, dpi=200, format="tif",transparent=False, facecolor = 'black', bbox_inches=None, pad_inches=0.1, metadata=None)
             figure1.patch.set_facecolor('black')
-            figure1.savefig(fname, dpi=200, format="tif",transparent=False, facecolor = 'black', bbox_inches=None, pad_inches=0.1, frameon=None, metadata=None)
+            
             canvas1.draw()
             figure1.tight_layout()
+            
+            
+            #plt.close(figure1)
+           
         
 
         root.update()   
