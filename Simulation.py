@@ -226,7 +226,7 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
             
                 figure1.tight_layout()"""
     figure1 = Figure(figsize=(win_width/(2*dpi_all),win_height/(2*dpi_all)), dpi=100)
-    figure1.patch.set_facecolor('black')
+    figure1.patch.set_facecolor(color_setup.back)
     gs = figure1.add_gridspec(2, 4)
 
     if Dim == 3:
@@ -337,7 +337,7 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
             #----------------------------Print particles--------------------------------------------------------------
             #---------------------------------------------------------------------------------------------------------
 
-            box_plot.set_title("Simulation box", color="white")
+            box_plot.set_title("Simulation box", color=color_setup.face)
 
 
 
@@ -487,26 +487,26 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
                         box_plot.scatter(particles_x, particles_y, s = 50, linewidth = 0, color = color)
 
                     if (color == 'yellow'):
-                        box_plot.scatter(particles_x, particles_y, s = 50, linewidth = 1, facecolor='g', edgecolor = 'magenta')
+                        box_plot.scatter(particles_x, particles_y, s = 50, linewidth = 1, facecolor=color_setup.gp, edgecolor = color_setup.rp)
 
-            box_plot.spines['bottom'].set_color('white')
-            box_plot.spines['top'].set_color('white') 
-            box_plot.spines['right'].set_color('white')
-            box_plot.spines['left'].set_color('white')
-            box_plot.tick_params(axis='x', colors='white')
-            box_plot.tick_params(axis='y', colors='white')
+            box_plot.spines['bottom'].set_color(color_setup.face)
+            box_plot.spines['top'].set_color(color_setup.face) 
+            box_plot.spines['right'].set_color(color_setup.face)
+            box_plot.spines['left'].set_color(color_setup.face)
+            box_plot.tick_params(axis='x', colors=color_setup.face)
+            box_plot.tick_params(axis='y', colors=color_setup.face)
             if Dim == 3:
-                box_plot.tick_params(axis='z', colors='white')
-                box_plot.zaxis.label.set_color('white')
-            box_plot.yaxis.label.set_color('white')
-            box_plot.xaxis.label.set_color('white')
-            box_plot.set_facecolor('black')
+                box_plot.tick_params(axis='z', colors=color_setup.face)
+                box_plot.zaxis.label.set_color(color_setup.face)
+            box_plot.yaxis.label.set_color(color_setup.face)
+            box_plot.xaxis.label.set_color(color_setup.face)
+            box_plot.set_facecolor(color_setup.back)
              
             
             #--------------------------------------Print focal point---------------------------------------------
             
 
-            Plot_focal_point (Dim, box_plot, x__0, y__0, z__0, x_res, y_res, z_res)
+            Plot_focal_point (Dim, box_plot, x__0, y__0, z__0, x_res, y_res, z_res, color_setup.fc)
             if (Dim == 2):
                 box_plot.set_aspect(1)
 
@@ -514,7 +514,7 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
             #----------------------------Print traces-----------------------------------------------------------------
             #---------------------------------------------------------------------------------------------------------
 
-            fluct_plot.set_title("Intensity traces", color="white")
+            fluct_plot.set_title("Intensity traces", color=color_setup.face)
 
             x_length = 0.5
 
@@ -532,27 +532,27 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
 
 
             
-            fluct_plot.plot(t1,numbers_g,'g')
-            fluct_plot.plot(t1,numbers_r, color = 'magenta')
+            fluct_plot.plot(t1,numbers_g, color = color_setup.gt)
+            fluct_plot.plot(t1,numbers_r, color = color_setup.rt)
             fluct_plot.ticklabel_format(axis = "y", style="sci", scilimits = (0,0))
             fluct_plot.set_ylabel('Intensity (a.u.)')
             fluct_plot.set_xlabel('Time (s)')
 
-            fluct_plot.spines['bottom'].set_color('white')
-            fluct_plot.spines['top'].set_color('white') 
-            fluct_plot.spines['right'].set_color('white')
-            fluct_plot.spines['left'].set_color('white')
-            fluct_plot.tick_params(axis='x', colors='white')
-            fluct_plot.tick_params(axis='y', colors='white')
-            fluct_plot.yaxis.label.set_color('white')
-            fluct_plot.xaxis.label.set_color('white')
-            fluct_plot.set_facecolor('black')
+            fluct_plot.spines['bottom'].set_color(color_setup.face)
+            fluct_plot.spines['top'].set_color(color_setup.face) 
+            fluct_plot.spines['right'].set_color(color_setup.face)
+            fluct_plot.spines['left'].set_color(color_setup.face)
+            fluct_plot.tick_params(axis='x', colors=color_setup.face)
+            fluct_plot.tick_params(axis='y', colors=color_setup.face)
+            fluct_plot.yaxis.label.set_color(color_setup.face)
+            fluct_plot.xaxis.label.set_color(color_setup.face)
+            fluct_plot.set_facecolor(color_setup.back)
 
             #---------------------------------------------------------------------------------------------------------
             #----------------------------Print correlation functions--------------------------------------------------
             #---------------------------------------------------------------------------------------------------------
 
-            corr_plot.set_title("Correlation functions", color="white")
+            corr_plot.set_title("Correlation functions", color=color_setup.face)
 
             if index > 50:
 
@@ -577,7 +577,7 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
     
 
                 #plt.semilogx(np.arange(0,a.shape[0]//2)*time_step,corr,'g')
-                corr_plot.semilogx(time,scorr,'g')
+                corr_plot.semilogx(time,scorr,color = color_setup.gc)
 
                 # Red autocorrelation
                 a = np.array(numbers_r)
@@ -595,7 +595,7 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
     
 
                 #plt.semilogx(np.arange(0,a.shape[0]//2)*time_step,corr,'r')
-                corr_plot.semilogx(time,scorr,color = 'magenta')
+                corr_plot.semilogx(time,scorr,color = color_setup.rc)
 
 
                 # Cross correlation
@@ -614,7 +614,7 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
     
 
                 #plt.semilogx(np.arange(0,a.shape[0]//2)*time_step,corr,'y')
-                corr_plot.semilogx(time,scorr,'y')
+                corr_plot.semilogx(time,scorr,color = color_setup.cc)
 
                 #plt.xlim (10**(-9), 10**(-6))
 
@@ -622,15 +622,15 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
             corr_plot.set_ylabel('G(tau)')
             corr_plot.set_xlabel('Tau (s)')
 
-            corr_plot.spines['bottom'].set_color('white')
-            corr_plot.spines['top'].set_color('white') 
-            corr_plot.spines['right'].set_color('white')
-            corr_plot.spines['left'].set_color('white')
-            corr_plot.tick_params(axis='x', colors='white')
-            corr_plot.tick_params(axis='y', colors='white')
-            corr_plot.yaxis.label.set_color('white')
-            corr_plot.xaxis.label.set_color('white')
-            corr_plot.set_facecolor('black')
+            corr_plot.spines['bottom'].set_color(color_setup.face)
+            corr_plot.spines['top'].set_color(color_setup.face) 
+            corr_plot.spines['right'].set_color(color_setup.face)
+            corr_plot.spines['left'].set_color(color_setup.face)
+            corr_plot.tick_params(axis='x', colors=color_setup.face)
+            corr_plot.tick_params(axis='y', colors=color_setup.face)
+            corr_plot.yaxis.label.set_color(color_setup.face)
+            corr_plot.xaxis.label.set_color(color_setup.face)
+            corr_plot.set_facecolor(color_setup.back)
 
 
 
@@ -691,8 +691,8 @@ def Simulate (simulation_setup, All_particles, color_setup, trap_setup, ifprevie
             #fname = 'C:\\Users\\taras.sych\\Desktop\\Sim output\\Full cross corr\\figure' + str(index) + '.tif'
             fname = 'C:\\Users\\taras.sych\\Desktop\\Sim output\\figure' + str(index) + '.tif'
             #fname = 'C:\\Users\\taras.sych\\Desktop\\Sim output\\No cross corr\\figure' + str(index) + '.tif'
-            figure1.savefig(fname, dpi=200, format="tif",transparent=False, facecolor = 'black', bbox_inches=None, pad_inches=0.1, metadata=None)
-            figure1.patch.set_facecolor('black')
+            figure1.savefig(fname, dpi=200, format="tif",transparent=False, facecolor = color_setup.back, bbox_inches=None, pad_inches=0.1, metadata=None)
+            figure1.patch.set_facecolor(color_setup.back)
             
             canvas1.draw()
             figure1.tight_layout()
@@ -972,7 +972,7 @@ def Read_brownian (filepath):
     return particles
 
 
-def Plot_focal_point (Dim, ax, x0, y0, z0, rx, ry, rz):
+def Plot_focal_point (Dim, ax, x0, y0, z0, rx, ry, rz, focal_color):
 
     if Dim == 3:
 
@@ -986,13 +986,13 @@ def Plot_focal_point (Dim, ax, x0, y0, z0, rx, ry, rz):
         z = rz/2 * np.outer(np.ones_like(u), np.cos(v))+z0
 
 # Plot:
-        ax.plot_surface(x, y, z,  rstride=4, cstride=4, color='b', alpha=0.2)
+        ax.plot_surface(x, y, z,  rstride=4, cstride=4, color=focal_color, alpha=0.2)
 
     if Dim == 2:
         t = np.linspace(0,360,360)
         x = rx/2*np.cos(np.radians(t))+x0 # major axis of ellipse
         y = ry/2*np.sin(np.radians(t))+y0
-        ax.plot(x,y, color='b')
+        ax.plot(x,y, color=focal_color)
         
     
 

@@ -46,7 +46,7 @@ def Run():
 	ifpreview = False
 	print("Dimension:" + str(Dim))
 	simulation_setup = Sim_box(Dim, X_size.get(), Y_size.get(), Z_size.get(), X_resol.get(), Y_resol.get(), Z_resol.get(), Sim_time.get(), Step_time.get(), Dwell_time.get())
-	color_setup = Plot_colors(PGreencolor_entry.get(), PRedcolor_entry.get(), TGreencolor_entry.get(), TRedcolor_entry.get(), CGreencolor_entry.get(), CRedcolor_entry.get(), Cross_entry.get(), Focal_entry.get())
+	color_setup = Plot_colors(PGreencolor_entry.get(), PRedcolor_entry.get(), TGreencolor_entry.get(), TRedcolor_entry.get(), CGreencolor_entry.get(), CRedcolor_entry.get(), Cross_entry.get(), Focal_entry.get(), Back_entry.get(), Face_entry.get())
 	trap_setup = Trap_values(Traps_number_entry.get(), Traps_radii_entry.get(), Traps_diff_entry.get(), iftrap, iftrapmove)
 
 
@@ -71,7 +71,7 @@ class Particles_overview:
 		self.D2 = D21 
 
 class Plot_colors:
-	def __init__(self, gp1, rp1, gt1, rt1, gc1, rc1, cc1, fc1 ):
+	def __init__(self, gp1, rp1, gt1, rt1, gc1, rc1, cc1, fc1, back1, face1 ):
 		self.gp = gp1
 		self.rp = rp1
 		self.gt = gt1
@@ -80,6 +80,8 @@ class Plot_colors:
 		self.rc = rc1
 		self.cc = cc1
 		self.fc = fc1
+		self.back = back1
+		self.face = face1
 
 	def color_print(self):
 		print(self.gp, self.rp, self.gt, self.rt, self.gc, self.rc, self.cc, self.fc)
@@ -365,6 +367,22 @@ def FS_color():
 	Focal_entry.config(state='readonly')
 
 
+def Back_color():
+	plot_col.back = colorchooser.askcolor()[1]
+	Back_entry.config(state='normal')
+	Back_entry.delete(0,"end")
+	Back_entry.insert(0,str(plot_col.back))
+	Back_entry.config(readonlybackground  = plot_col.back)
+	Back_entry.config(state='readonly')
+
+def Face_color():
+	plot_col.face = colorchooser.askcolor()[1]
+	Face_entry.config(state='normal')
+	Face_entry.delete(0,"end")
+	Face_entry.insert(0,str(plot_col.face))
+	Face_entry.config(readonlybackground  = plot_col.face)
+	Face_entry.config(state='readonly')
+
 
 
 root = tk.Tk()
@@ -596,7 +614,7 @@ tabs.add(frame3, text = "Frames/plots")
 #--------------------------------      Frames/plots    ------------------------------------------
 #------------------------------------------------------------------------------------------------
 
-plot_col = Plot_colors("#00ff00", "#ff00ff", "#00ff00", "#ff00ff", "#00ff00", "#ff00ff", "#ff8040", "#0000ff")
+plot_col = Plot_colors("#00ff00", "#ff00ff", "#00ff00", "#ff00ff", "#00ff00", "#ff00ff", "#ff8040", "#0000ff", "#000000", "#ffffff")
 
 row13 = ttk.Frame(frame3)
 row13.pack(side="top", fill="x")
@@ -727,6 +745,36 @@ Focal_entry.config(state = 'readonly')
 
 Focal_Button = tk.Button(row23, text="Choose color", command=FS_color)
 Focal_Button.grid(row = 10, column = 2, sticky = "w")
+
+
+Figure_color_label = tk.Label(row23, text="Figure colors: ")
+Figure_color_label.grid(row = 11, column = 0, columnspan = 2, sticky = "w")
+
+Back_label = tk.Label(row23, text="Background: ")
+Back_label.grid(row = 12, column = 0, sticky = "w")
+
+Back_entry = tk.Entry(row23, width = 9)
+Back_entry.grid(row = 12, column = 1, sticky = "w")
+Back_entry.delete(0,"end")
+Back_entry.insert(0,"#000000")
+Back_entry.config(readonlybackground  = "#000000")
+Back_entry.config(state = 'readonly')
+
+Back_Button = tk.Button(row23, text="Choose color", command=Back_color)
+Back_Button.grid(row = 12, column = 2, sticky = "w")
+
+Face_label = tk.Label(row23, text="Facecolor: ")
+Face_label.grid(row = 13, column = 0, sticky = "w")
+
+Face_entry = tk.Entry(row23, width = 9)
+Face_entry.grid(row = 13, column = 1, sticky = "w")
+Face_entry.delete(0,"end")
+Face_entry.insert(0,"#ffffff")
+Face_entry.config(readonlybackground  = "#ffffff")
+Face_entry.config(state = 'readonly')
+
+Face_Button = tk.Button(row23, text="Choose color", command=Face_color)
+Face_Button.grid(row = 13, column = 2, sticky = "w")
 
 #------------------------------------------------------------------------------------------------
 #------------------------------------------------------------------------------------------------
